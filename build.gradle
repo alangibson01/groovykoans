@@ -9,8 +9,8 @@ import java.awt.*
 import java.util.List
 
 apply plugin: 'groovy'
-apply from: 'gradle/idea.gradle'
-apply from: 'gradle/eclipse.gradle'
+//apply from: 'gradle/idea.gradle'
+//apply from: 'gradle/eclipse.gradle'
 
 version = '0.5'
 
@@ -55,16 +55,18 @@ tasks.addRule('Pattern: koan<Number>: Runs a single Koan') { String taskName ->
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
+wrapper {
+    gradleVersion = '6.5.1'
 }
 
 // show welcome message
-task sayHello << {
-    List<String> lines = file('gradle/one-liners.txt').readLines()
-    def quote = lines.get(new Random().nextInt(lines.size() - 1))
-    println "Groovy Koans ${version}:\n${quote}"
-    println "${'-' * quote.size()}\n"
+task sayHello {
+    doLast {
+        List<String> lines = file('gradle/one-liners.txt').readLines()
+        def quote = lines.get(new Random().nextInt(lines.size() - 1))
+        println "Groovy Koans ${version}:\n${quote}"
+        println "${'-' * quote.size()}\n"
+    }
 }
 
 test.dependsOn sayHello
