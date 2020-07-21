@@ -49,7 +49,7 @@ tasks.addRule('Pattern: koan<Number>: Runs a single Koan') { String taskName ->
         // make all Test tasks a dependency of the dummy task and reset the includes
         tasks.withType(Test) { testTask ->
             logger.info("Single Koan Execution: apply include pattern to Test task <$testTask.name>")
-            testTask.includes = WrapUtil.toSet("**/${koanName}.class")
+            testTask.includes = java.util.Collections.singleton("**/${koanName}.class")
             dummyTask.dependsOn testTask
         }
     }
